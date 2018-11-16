@@ -1,0 +1,679 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{BrentChallenge}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+        
+        \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{C:}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{Users}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{kofen}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{Downloads}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{vgsales.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{df}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 16598 entries, 0 to 16597
+Data columns (total 11 columns):
+Rank            16598 non-null int64
+Name            16598 non-null object
+Platform        16598 non-null object
+Year            16327 non-null float64
+Genre           16598 non-null object
+Publisher       16540 non-null object
+NA\_Sales        16598 non-null float64
+EU\_Sales        16598 non-null float64
+JP\_Sales        16598 non-null float64
+Other\_Sales     16598 non-null float64
+Global\_Sales    16598 non-null float64
+dtypes: float64(6), int64(1), object(4)
+memory usage: 1.4+ MB
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}2}]:}    Rank                       Name Platform    Year         Genre Publisher  \textbackslash{}
+        0     1                 Wii Sports      Wii  2006.0        Sports  Nintendo   
+        1     2          Super Mario Bros.      NES  1985.0      Platform  Nintendo   
+        2     3             Mario Kart Wii      Wii  2008.0        Racing  Nintendo   
+        3     4          Wii Sports Resort      Wii  2009.0        Sports  Nintendo   
+        4     5   Pokemon Red/Pokemon Blue       GB  1996.0  Role-Playing  Nintendo   
+        5     6                     Tetris       GB  1989.0        Puzzle  Nintendo   
+        6     7      New Super Mario Bros.       DS  2006.0      Platform  Nintendo   
+        7     8                   Wii Play      Wii  2006.0          Misc  Nintendo   
+        8     9  New Super Mario Bros. Wii      Wii  2009.0      Platform  Nintendo   
+        9    10                  Duck Hunt      NES  1984.0       Shooter  Nintendo   
+        
+           NA\_Sales  EU\_Sales  JP\_Sales  Other\_Sales  Global\_Sales  
+        0     41.49     29.02      3.77         8.46         82.74  
+        1     29.08      3.58      6.81         0.77         40.24  
+        2     15.85     12.88      3.79         3.31         35.82  
+        3     15.75     11.01      3.28         2.96         33.00  
+        4     11.27      8.89     10.22         1.00         31.37  
+        5     23.20      2.26      4.22         0.58         30.26  
+        6     11.38      9.23      6.50         2.90         30.01  
+        7     14.03      9.20      2.93         2.85         29.02  
+        8     14.59      7.06      4.70         2.26         28.62  
+        9     26.93      0.63      0.28         0.47         28.31  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{}\PYZsh{} I want to know how many games each platform has. i found a function called crosstab that helps}
+        \PY{c+c1}{\PYZsh{}\PYZsh{} me with visualizing this.}
+        \PY{n}{platGenre} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{crosstab}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{Platform}\PY{p}{,}\PY{n}{df}\PY{o}{.}\PY{n}{Genre}\PY{p}{)}
+        \PY{n}{platGenreTotal} \PY{o}{=} \PY{n}{platGenre}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{ascending} \PY{o}{=} \PY{k+kc}{False}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}
+        \PY{n}{sns}\PY{o}{.}\PY{n}{barplot}\PY{p}{(}\PY{n}{y} \PY{o}{=} \PY{n}{platGenreTotal}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{x} \PY{o}{=} \PY{n}{platGenreTotal}\PY{o}{.}\PY{n}{values}\PY{p}{,} \PY{n}{orient}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{h}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Platform}\PY{l+s+s2}{\PYZdq{}}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The amount of games}\PY{l+s+s2}{\PYZdq{}}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_2_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{}\PYZsh{} Now i want to focus on the platforms that have 1000 or more games.}
+        \PY{n}{platGenre}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{platGenre}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{popPlatform} \PY{o}{=} \PY{n}{platGenre}\PY{p}{[}\PY{n}{platGenre}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{l+m+mi}{1000}\PY{p}{]}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{by}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ascending} \PY{o}{=} \PY{k+kc}{False}\PY{p}{)}
+        \PY{n}{neededdata} \PY{o}{=} \PY{n}{popPlatform}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Strategy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{maxi} \PY{o}{=} \PY{n}{neededdata}\PY{o}{.}\PY{n}{values}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}
+        \PY{n}{mini} \PY{o}{=} \PY{n}{neededdata}\PY{o}{.}\PY{n}{values}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}
+        \PY{n}{popPlatformfinal} \PY{o}{=} \PY{n}{popPlatform}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{popPlatform}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{total}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{T}\PY{p}{,} \PY{n}{ignore\PYZus{}index}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+        \PY{n}{sns}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{font\PYZus{}scale}\PY{o}{=}\PY{l+m+mf}{1.0}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+        \PY{n}{sns}\PY{o}{.}\PY{n}{heatmap}\PY{p}{(}\PY{n}{popPlatformfinal}\PY{p}{,} \PY{n}{vmin} \PY{o}{=} \PY{n}{mini}\PY{p}{,} \PY{n}{vmax} \PY{o}{=} \PY{n}{maxi}\PY{p}{,} \PY{n}{annot}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{fmt}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{d}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{rotation} \PY{o}{=} \PY{l+m+mi}{90}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_3_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{GenreGroup} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Genre}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NA\PYZus{}Sales}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Global\PYZus{}Sales}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{GenreGroup}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NA\PYZus{}Sales}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{GenreGroup}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NA\PYZus{}Sales}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{/}\PY{n}{GenreGroup}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Global\PYZus{}Sales}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{GenreGroup}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{EU\PYZus{}Sales}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{GenreGroup}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{EU\PYZus{}Sales}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{/}\PY{n}{GenreGroup}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Global\PYZus{}Sales}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{GenreGroup}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{JP\PYZus{}Sales}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{GenreGroup}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{JP\PYZus{}Sales}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{/}\PY{n}{GenreGroup}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Global\PYZus{}Sales}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{GenreGroup}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Other\PYZus{}Sales}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{GenreGroup}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Other\PYZus{}Sales}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{/}\PY{n}{GenreGroup}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Global\PYZus{}Sales}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+        \PY{n}{sns}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{font\PYZus{}scale}\PY{o}{=}\PY{l+m+mf}{0.7}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{211}\PY{p}{)}
+        \PY{n}{sns}\PY{o}{.}\PY{n}{heatmap}\PY{p}{(}\PY{n}{GenreGroup}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NA\PYZus{}Sales}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Other\PYZus{}Sales}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{annot}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{fmt} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.1f}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Comparation of each area in each Genre}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{212}\PY{p}{)}
+        \PY{n}{sns}\PY{o}{.}\PY{n}{heatmap}\PY{p}{(}\PY{n}{GenreGroup}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NA\PYZus{}Sales}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Other\PYZus{}Sales}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{vmax} \PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{vmin}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{annot}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{fmt} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.2}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Comparation of each area in each Genre(Pencentage)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Years\PYZus{}Since\PYZus{}Release}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{2018} \PY{o}{\PYZhy{}} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sales\PYZus{}Per\PYZus{}Year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Global\PYZus{}Sales}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{/} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Years\PYZus{}Since\PYZus{}Release}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{df}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sales\PYZus{}Per\PYZus{}Year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{nlargest}\PY{p}{(}\PY{l+m+mi}{200}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sales\PYZus{}Per\PYZus{}Year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:}       Rank                                            Name Platform    Year  \textbackslash{}
+        0        1                                      Wii Sports      Wii  2006.0   
+        33      34                       Call of Duty: Black Ops 3      PS4  2015.0   
+        16      17                              Grand Theft Auto V      PS3  2013.0   
+        3        4                               Wii Sports Resort      Wii  2009.0   
+        2        3                                  Mario Kart Wii      Wii  2008.0   
+        23      24                              Grand Theft Auto V     X360  2013.0   
+        8        9                       New Super Mario Bros. Wii      Wii  2009.0   
+        44      45                              Grand Theft Auto V      PS4  2014.0   
+        32      33                             Pokemon X/Pokemon Y      3DS  2013.0   
+        49      50       Pokemon Omega Ruby/Pokemon Alpha Sapphire      3DS  2014.0   
+        77      78                                         FIFA 16      PS4  2015.0   
+        15      16                              Kinect Adventures!     X360  2010.0   
+        92      93                    Star Wars Battlefront (2015)      PS4  2015.0   
+        6        7                           New Super Mario Bros.       DS  2006.0   
+        14      15                                    Wii Fit Plus      Wii  2009.0   
+        101    102                       Call of Duty: Black Ops 3     XOne  2015.0   
+        7        8                                        Wii Play      Wii  2006.0   
+        221    222                                         FIFA 17      PS4  2016.0   
+        34      35                      Call of Duty: Black Ops II      PS3  2012.0   
+        109    110                                       Fallout 4      PS4  2015.0   
+        35      36                      Call of Duty: Black Ops II     X360  2012.0   
+        29      30                  Call of Duty: Modern Warfare 3     X360  2011.0   
+        271    272                      Uncharted 4: A Thief's End      PS4  2016.0   
+        13      14                                         Wii Fit      Wii  2007.0   
+        61      62                            Call of Duty: Ghosts     X360  2013.0   
+        37      38                  Call of Duty: Modern Warfare 3      PS3  2011.0   
+        67      68                            Call of Duty: Ghosts      PS3  2013.0   
+        26      27                     Pokemon Black/Pokemon White       DS  2010.0   
+        10      11                                      Nintendogs       DS  2005.0   
+        93      94                  Call of Duty: Advanced Warfare      PS4  2014.0   
+        {\ldots}    {\ldots}                                             {\ldots}      {\ldots}     {\ldots}   
+        758    760                 Tom Clancy's Rainbow Six: Siege      PS4  2015.0   
+        133    134                                    Halo 3: ODST     X360  2009.0   
+        365    366                                   Battlefield 4     X360  2013.0   
+        797    799                           Battlefield: Hardline      PS4  2015.0   
+        538    539                            inFAMOUS: Second Son      PS4  2014.0   
+        1389  1391                                     Doom (2016)      PS4  2016.0   
+        383    384                                Monster Hunter 4      3DS  2013.0   
+        386    387                                   Battlefield 4      PS4  2013.0   
+        222    223                             Batman: Arkham City     X360  2011.0   
+        118    119                                  Gears of War 2     X360  2008.0   
+        561    562                          Yokai Watch 2 Shinuchi      3DS  2014.0   
+        401    402                 Assassin's Creed IV: Black Flag     X360  2013.0   
+        228    229                              Forza Motorsport 4     X360  2011.0   
+        149    150  Dragon Quest IX: Sentinels of the Starry Skies       DS  2009.0   
+        192    193                                       Fable III     X360  2010.0   
+        905    907                         Destiny: The Taken King      PS4  2015.0   
+        1568  1570                                   Yokai Watch 3      3DS  2016.0   
+        199    200                                  FIFA Soccer 11      PS3  2010.0   
+        21      22                                Super Mario Land       GB  1989.0   
+        156    157                             Assassin's Creed II      PS3  2009.0   
+        1628  1630                                   Madden NFL 17      PS4  2016.0   
+        454    455      The Legend of Zelda: A Link Between Worlds      3DS  2013.0   
+        160    161                              Forza Motorsport 3     X360  2009.0   
+        120    121                  Call of Duty 4: Modern Warfare      PS3  2007.0   
+        947    949                                    Just Cause 3      PS4  2015.0   
+        100    101          The Legend of Zelda: Twilight Princess      Wii  2006.0   
+        214    215                        Monster Hunter Freedom 3      PSP  2010.0   
+        79      80                                          Halo 2       XB  2004.0   
+        263    264                   Assassin's Creed: Revelations      PS3  2011.0   
+        216    217                                  God of War III      PS3  2010.0   
+        
+                     Genre                               Publisher  NA\_Sales  \textbackslash{}
+        0           Sports                                Nintendo     41.49   
+        33         Shooter                              Activision      5.77   
+        16          Action                    Take-Two Interactive      7.01   
+        3           Sports                                Nintendo     15.75   
+        2           Racing                                Nintendo     15.85   
+        23          Action                    Take-Two Interactive      9.63   
+        8         Platform                                Nintendo     14.59   
+        44          Action                    Take-Two Interactive      3.80   
+        32    Role-Playing                                Nintendo      5.17   
+        49    Role-Playing                                Nintendo      4.23   
+        77          Sports                         Electronic Arts      1.11   
+        15            Misc                  Microsoft Game Studios     14.97   
+        92         Shooter                         Electronic Arts      2.93   
+        6         Platform                                Nintendo     11.38   
+        14          Sports                                Nintendo      9.09   
+        101        Shooter                              Activision      4.52   
+        7             Misc                                Nintendo     14.03   
+        221         Sports                         Electronic Arts      0.28   
+        34         Shooter                              Activision      4.99   
+        109   Role-Playing                      Bethesda Softworks      2.47   
+        35         Shooter                              Activision      8.25   
+        29         Shooter                              Activision      9.03   
+        271        Shooter             Sony Computer Entertainment      1.30   
+        13          Sports                                Nintendo      8.94   
+        61         Shooter                              Activision      6.72   
+        37         Shooter                              Activision      5.54   
+        67         Shooter                              Activision      4.09   
+        26    Role-Playing                                Nintendo      5.57   
+        10      Simulation                                Nintendo      9.07   
+        93         Shooter                              Activision      2.80   
+        {\ldots}            {\ldots}                                     {\ldots}       {\ldots}   
+        758        Shooter                                 Ubisoft      0.54   
+        133        Shooter                  Microsoft Game Studios      4.34   
+        365        Shooter                         Electronic Arts      2.14   
+        797        Shooter                         Electronic Arts      0.70   
+        538         Action             Sony Computer Entertainment      1.27   
+        1389       Shooter                      Bethesda Softworks      0.49   
+        383   Role-Playing                                  Capcom      0.00   
+        386        Shooter                         Electronic Arts      1.34   
+        222         Action  Warner Bros. Interactive Entertainment      2.99   
+        118        Shooter                  Microsoft Game Studios      4.15   
+        561   Role-Playing                                 Level 5      0.00   
+        401         Action                                 Ubisoft      1.90   
+        228         Racing                  Microsoft Game Studios      2.08   
+        149   Role-Playing                                Nintendo      0.66   
+        192   Role-Playing                  Microsoft Game Studios      3.59   
+        905        Shooter                              Activision      0.77   
+        1568        Action                                 Level 5      0.00   
+        199         Sports                         Electronic Arts      0.60   
+        21        Platform                                Nintendo     10.83   
+        156         Action                                 Ubisoft      2.54   
+        1628        Sports                         Electronic Arts      0.92   
+        454         Action                                Nintendo      1.40   
+        160         Racing                  Microsoft Game Studios      2.99   
+        120        Shooter                              Activision      3.10   
+        947         Action                             Square Enix      0.46   
+        100         Action                                Nintendo      3.83   
+        214   Role-Playing                                  Capcom      0.00   
+        79         Shooter                  Microsoft Game Studios      6.82   
+        263         Action                                 Ubisoft      1.41   
+        216         Action             Sony Computer Entertainment      2.74   
+        
+              EU\_Sales  JP\_Sales  Other\_Sales  Global\_Sales  Years\_Since\_Release  \textbackslash{}
+        0        29.02      3.77         8.46         82.74                 12.0   
+        33        5.81      0.35         2.31         14.24                  3.0   
+        16        9.27      0.97         4.14         21.40                  5.0   
+        3        11.01      3.28         2.96         33.00                  9.0   
+        2        12.88      3.79         3.31         35.82                 10.0   
+        23        5.31      0.06         1.38         16.38                  5.0   
+        8         7.06      4.70         2.26         28.62                  9.0   
+        44        5.81      0.36         2.02         11.98                  4.0   
+        32        4.05      4.34         0.79         14.35                  5.0   
+        49        3.37      3.08         0.65         11.33                  4.0   
+        77        6.06      0.06         1.26          8.49                  3.0   
+        15        4.94      0.24         1.67         21.82                  8.0   
+        92        3.29      0.22         1.23          7.67                  3.0   
+        6         9.23      6.50         2.90         30.01                 12.0   
+        14        8.59      2.53         1.79         22.00                  9.0   
+        101       2.09      0.01         0.67          7.30                  3.0   
+        7         9.20      2.93         2.85         29.02                 12.0   
+        221       3.75      0.06         0.69          4.77                  2.0   
+        34        5.88      0.65         2.52         14.03                  6.0   
+        109       3.15      0.24         1.10          6.96                  3.0   
+        35        4.30      0.07         1.12         13.73                  6.0   
+        29        4.28      0.13         1.32         14.76                  7.0   
+        271       2.07      0.18         0.65          4.20                  2.0   
+        13        8.03      3.60         2.15         22.72                 11.0   
+        61        2.63      0.04         0.82         10.21                  5.0   
+        37        5.82      0.49         1.62         13.46                  7.0   
+        67        3.73      0.38         1.38          9.59                  5.0   
+        26        3.28      5.65         0.82         15.32                  8.0   
+        10       11.00      1.93         2.75         24.76                 13.0   
+        93        3.30      0.14         1.37          7.60                  4.0   
+        {\ldots}        {\ldots}       {\ldots}          {\ldots}           {\ldots}                  {\ldots}   
+        758       1.16      0.13         0.32          2.15                  3.0   
+        133       1.35      0.06         0.61          6.36                  9.0   
+        365       1.08      0.02         0.29          3.53                  5.0   
+        797       0.93      0.14         0.32          2.09                  3.0   
+        538       0.97      0.07         0.47          2.78                  4.0   
+        1389      0.66      0.02         0.22          1.39                  2.0   
+        383       0.00      3.44         0.00          3.44                  5.0   
+        386       1.54      0.17         0.38          3.43                  5.0   
+        222       1.31      0.04         0.41          4.76                  7.0   
+        118       1.92      0.06         0.64          6.76                 10.0   
+        561       0.00      2.68         0.00          2.68                  4.0   
+        401       1.14      0.01         0.29          3.34                  5.0   
+        228       2.04      0.06         0.47          4.64                  7.0   
+        149       0.69      4.35         0.15          5.84                  9.0   
+        192       1.11      0.05         0.38          5.13                  8.0   
+        905       0.78      0.04         0.31          1.91                  3.0   
+        1568      0.00      1.27         0.00          1.27                  2.0   
+        199       3.29      0.06         1.13          5.08                  8.0   
+        21        2.71      4.18         0.42         18.14                 29.0   
+        156       1.95      0.21         0.87          5.57                  9.0   
+        1628      0.08      0.00         0.23          1.23                  2.0   
+        454       0.99      0.46         0.22          3.07                  5.0   
+        160       1.92      0.10         0.51          5.51                  9.0   
+        120       2.30      0.28         1.04          6.72                 11.0   
+        947       1.02      0.07         0.28          1.83                  3.0   
+        100       2.19      0.60         0.70          7.31                 12.0   
+        214       0.00      4.87         0.00          4.87                  8.0   
+        79        1.53      0.05         0.08          8.49                 14.0   
+        263       2.02      0.10         0.72          4.24                  7.0   
+        216       1.36      0.12         0.63          4.84                  8.0   
+        
+              Sales\_Per\_Year  
+        0           6.895000  
+        33          4.746667  
+        16          4.280000  
+        3           3.666667  
+        2           3.582000  
+        23          3.276000  
+        8           3.180000  
+        44          2.995000  
+        32          2.870000  
+        49          2.832500  
+        77          2.830000  
+        15          2.727500  
+        92          2.556667  
+        6           2.500833  
+        14          2.444444  
+        101         2.433333  
+        7           2.418333  
+        221         2.385000  
+        34          2.338333  
+        109         2.320000  
+        35          2.288333  
+        29          2.108571  
+        271         2.100000  
+        13          2.065455  
+        61          2.042000  
+        37          1.922857  
+        67          1.918000  
+        26          1.915000  
+        10          1.904615  
+        93          1.900000  
+        {\ldots}              {\ldots}  
+        758         0.716667  
+        133         0.706667  
+        365         0.706000  
+        797         0.696667  
+        538         0.695000  
+        1389        0.695000  
+        383         0.688000  
+        386         0.686000  
+        222         0.680000  
+        118         0.676000  
+        561         0.670000  
+        401         0.668000  
+        228         0.662857  
+        149         0.648889  
+        192         0.641250  
+        905         0.636667  
+        1568        0.635000  
+        199         0.635000  
+        21          0.625517  
+        156         0.618889  
+        1628        0.615000  
+        454         0.614000  
+        160         0.612222  
+        120         0.610909  
+        947         0.610000  
+        100         0.609167  
+        214         0.608750  
+        79          0.606429  
+        263         0.605714  
+        216         0.605000  
+        
+        [200 rows x 13 columns]
+\end{Verbatim}
+            
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
